@@ -1,0 +1,616 @@
+<html>
+    <head>
+        <title>Student Registration Web Application</title>
+        <link rel="stylesheet" href="/Users/QB/Documents/C308/FrontEnd/BootStrap/bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
+        crossorigin="anonymous">
+        </script>
+        <script src="/Users/QB/Documents/C308/FrontEnd/BootStrap/bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js"></script>
+        <script src="student_entry.js"></script>       
+    </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {font-family: "Lato", Arial, Helvetica, sans-serif; background-color: black;}
+        * {box-sizing: border-box;}
+
+        /* Add padding to container elements */
+        .title-container {
+            position: absolute;
+            width: 100%;
+            height: 200px;
+        }
+
+        .title-banner {
+            position: absolute;
+            width: auto;
+            height: 200px;
+            float: right;
+            right: 0;
+            opacity: 0.5;
+        }
+
+        /* Add padding to container elements */
+        .text-block {
+            position: absolute;
+            top: 110px;
+            left: 20px;
+            color: white;
+            width: 100%;
+            height: 200px;
+            float: initial;
+        }
+
+        /* Style the horizontal ruler */
+        hr {
+            border: 1px solid #888;
+            margin-bottom: 25px;
+        }
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            position: absolute;
+            top: 200px;
+            width: 100%;     
+        }
+        
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            padding: 15px 20px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+        
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+        
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #ccc;           
+        }
+        
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 20px 20px;
+            border: none;
+            background-color: #fefefe;
+            margin: 300px 20% 0 20%; /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+            width: 60%; /* Could be more or less, depending on screen size */
+            height: auto;
+            position: absolute;
+            overflow: scroll;
+            cursor:pointer;
+        }
+
+        /* Full-width input fields */
+        .register-container input[type=text] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px auto 22px auto;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+            float:none;
+        }
+
+        /* Add a background color when the inputs get focus */
+        input[type=text]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        /* Extra styles for the submit button */
+        .btn-submit {
+            padding: 14px 20px;
+            background-color: #04AA6D;
+            color: white;
+            margin: 20px 0;
+            border: none;
+            cursor: pointer;
+            opacity: 0.9;
+            float: left;
+            width: 45%;
+        }
+        .btn-submit:hover {
+            opacity:0.7;
+        }
+
+        /* Extra styles for the reset button */
+        .btn-reset {
+            padding: 14px 20px;
+            background-color: #f44336;
+            color: white;
+            margin: 20px 0;
+            border: none;
+            cursor: pointer;
+            opacity: 0.9;
+            float: right;
+            width: 45%;
+        }
+        .btn-reset:hover {
+            opacity:0.7;
+        }
+
+        /* Set a style for all buttons */
+        .btn {
+            background-color: #2780aa;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px 10px 10px 10px;
+            border: none;
+            cursor: pointer;
+            width: 40%;
+            opacity: 0.9;       
+        }
+        .btn:hover {
+            opacity:1;
+        }
+
+        .btn-edit {
+            border: 2px royalblue;
+            color: royalblue;
+            background-color: transparent;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 10px;  
+        }
+
+        .btn-edit:hover {
+            background: royalblue;
+            color: white;
+        }
+
+        .btn-del {
+            border-color: firebrick;
+            background-color: transparent;
+            color: firebrick;
+            padding: 5px 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .btn-del:hover {
+            background-color: firebrick;
+            color: white;
+        }
+
+        /* Set style for search-container */
+        .searchId-container button, .searchName-container button {
+            float: right;
+            width: 15%;
+            padding: 14px;
+            background: #ddd;
+            font-size: 17px;
+            border: 1px solid #ccc; 
+            margin: 0 0 10px 0;
+        }
+        .searchId-container button:hover, .searchName-container button:hover {
+            background: #ccc;
+        }
+
+        .searchId-container, .searchName-container, 
+        .searchId-container input[type=text], .searchName-container input[type=text] {     
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            float: left;
+            width: 80%;
+            margin: 0 0 0 0; 
+        }
+
+        .searchId-container input[type=text], .searchName-container input[type=text] {
+            background: #f1f1f1;
+            border: 1px solid #ccc;  
+        }
+
+        /* Set style for listcontent */
+        .listcontent {
+            padding: 0 15px;
+            border-top: none;
+            background-color: #fefefe;
+            margin: 0 0 15% 0; 
+            width: 100%;
+            height: 100%; 
+        }
+        
+        /* Set style for sidebar */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: absolute;
+            z-index: 2;
+            top: 260px;
+            left: 0;
+            background-color: #111;
+            overflow: auto;
+            transition: 0.2s;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidebar .closebtn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 30px;
+            margin-left: 50px;
+        }
+
+        /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+        @media screen and (max-height: 450px) {
+            .sidebar {padding-top: 15px;}
+            .sidebar a {font-size: 18px;}
+        }
+
+        /* login model */
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* Set a style for login buttons */
+        .btn-login {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-login:hover {
+            opacity: 0.8;
+        }
+
+        /* Extra styles for the cancel button */
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+            cursor: pointer;
+        }
+
+        /* Center the image and position the close button */
+        .imgcontainer {
+            text-align: center;
+            margin: 12px 0 12px 0;
+            position: relative;
+        }
+
+        img.avatar {
+            width: 60%;
+            border-radius: 50%;
+        }
+
+        .logincontainer {
+            padding: 10px;
+        }
+
+        /* The Modal (background) */
+        .logmodal {
+            display: none; /* Hidden by default */
+            position: absolute; /* Stay in place */
+            z-index: 2; /* Sit on top */
+            right: 0;
+            top: 260px;
+            width: 25%;
+            height: 100%; /* Full height */
+            overflow: scroll; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-bottom: 10px;
+        }
+
+        /* Modal Content */
+        .logmodal-content {
+            background-color: #fefefe;
+            margin: 10px auto 10px auto; 
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            font-size: 15px;
+        }
+
+        /* The Close Button (x) */
+        .close {
+            position: absolute;
+            right: 10;
+            margin-top: 0;
+            color: black;
+            font-size: 25px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: red;
+        }
+
+        @keyframes animatezoom {
+            from {transform: scale(0)} 
+            to {transform: scale(1)}
+        }
+
+        /* Change styles for span and cancel button on extra small screens */
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+        }    
+
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+            color: white;
+            cursor: pointer;
+            border: none;
+            margin: 8px 0;
+        }
+        
+        .cancelbtn:hover {
+            opacity: 0.8;
+        }
+      
+        /* table */
+        table{
+            font-family: arial, sans-serif;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #dddddd;
+            width: 100%;
+        }
+
+        th, td{
+            text-align: left;
+            padding: 20px;
+            width: 20%;
+        }
+
+        tr:nth-child(even){
+            background-color: #D6EEEE
+        }
+
+        img.stdpic {
+            position: relative;
+            top: 0;
+            width: 200px;
+        }      
+    </style>
+
+    <body>
+        <div id="main">
+        <div class="title-container">
+        <img class="title-banner" src="/Users/QB/Downloads/BCT2.gif">
+        <div class="text-block">    
+            <h1><b>Student Portal</b></h1>
+            <p>Welcome to student portal of Wiley Education</p>
+        </div>
+        </div>
+
+        <!-- menu tab -->
+        <div class="tab">
+            <button class="openbtn" onclick="openNav()">&#9776</button>
+            <button class="tablinks" onclick="student(event, 'Profile')">Student Profile</button>
+            <button class="tablinks" onclick="student(event, 'Register')">New Registration</button>
+            <button onclick="document.getElementById('loginModal').style.display='block'" style="width:auto; float:right;"><i class="fa fa-fw fa-user"></i> Login</button>
+        </div>
+        </div>
+
+         <!-- sidebar -->
+         <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#9746</a>
+            <a href="#">About</a>
+            <a href="#">Faculty</a>
+            <a href="#">Alumni</a>
+            <a href="#">Contact</a>
+        </div>
+
+        <!-- student profile -->
+        <div id="Profile" class="tabcontent">
+            <h3><b>Student Profile</b></h3>
+            <p>Student information recorded in database.</p>
+            <hr>
+            <div class="searchId-container">               
+                <label for="findById"><b>Search by Id:</b></label><br>
+                <input id="findById" type="text" class="form-control" placeholder="Student id">
+                <button id="viewbyid" type="submit"><i class="fa fa-search"></i></button>
+            </div>
+            <div class="searchName-container">
+                <label for="findByName"><b>Search by Name:</b></label><br>
+                <input id="findByName" type="text" class="form-control" placeholder="Student name">
+                <button id="viewbyname" type="submit"><i class="fa fa-search"></i></button>
+            </div>        
+            <button id="viewall" class="btn">View All</button>
+            <hr>
+            <div id="stdlist" class="listcontent" style="overflow-x:auto; overflow-y: auto;"></div>                   
+        </div>
+
+        <!-- student registration -->
+        <div id="Register" class="tabcontent">
+            <h3><b>Student Registration</b></h3>
+            <p>Please fill in this form to create a new student account.</p> 
+            <hr>            
+                <div id="register" class="register-container" method="post">
+                <form id="registerform">       
+                    <label for="name"><b>Name:</b></label>
+                    <input type="text" class="form-control" placeholder="*REQUIRED*" id="name" required>
+                    
+                    <label for="age"><b>Age:</b></label>
+                    <input type="text" class="form-control" placeholder="" id="age"required>
+                        
+                    <label for="mobileNo"><b>Mobile Number:</b></label>
+                    <input type="text" class="form-control" placeholder="*REQUIRED*" id="mobileNo" required>
+                    
+                    <label for="address"><b>Address:</b></label>
+                    <input type="text" class="form-control" placeholder="" id="address"required>
+                     
+                    <div class="clearfix">   
+                        <button id="register" type="submit" class="btn-submit">Register</button>
+                        <button id="reset" type="reset" class="btn-reset">Reset</button>
+                    </div> 
+                </form>                  
+                </div>      
+        </div>
+
+        <!-- student info Modal -->
+        <div class="modal" id="infoModal">
+            <div class="modal-dialog">
+            <div class="modal-content">
+        
+                <!-- Modal Header -->
+                <div class="modal-header">
+                <h3 class="modal-title"><b>Student Information</b></h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+        
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div id="studentId" class="modal-title"></div>
+                    <img class="stdpic" src="/Users/QB/Downloads/img_avatar.png" alt="Avatar"><hr>
+                    <div class="container mt-3">
+                        <div class="form-floating mb-3 mt-3">
+                            <input type="text" class="form-control" id="uname" placeholder="Enter name" name="name" required>
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="form-floating mt-3 mb-3">
+                            <input type="text" class="form-control" id="uage" placeholder="Enter age" name="age" required>
+                            <label for="age">Age</label>
+                        </div>
+                        <div class="form-floating mb-3 mt-3">
+                            <input type="text" class="form-control" id="umobileNo" placeholder="Enter mobile" name="mobileNo" required>
+                            <label for="mobileNo">Mobile</label>
+                        </div>
+                        <div class="form-floating mt-3 mb-3">
+                            <input type="text" class="form-control" id="uaddress" placeholder="Enter address" name="address" required>
+                            <label for="address">Address</label>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                <button id="update" type="button" class="btn btn-edit" data-bs-dismiss="modal">Update</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+        <!-- login Modal -->
+        <!-- <div id="Login" class="tabcontent"> -->
+            <div class="logmodal" id="loginModal"> 
+                <form class="logmodal-content animate">          
+                    <div class="imgcontainer">
+                      <span onclick="document.getElementById('loginModal').style.display='none'" class="close" title="Close Modal">&times;</span><br>
+                      <img src="/Users/QB/Downloads/img_avatar2.png" alt="Avatar" class="avatar">
+                    </div>
+                
+                    <div class="logincontainer">
+                      <label for="uname"><b>Username</b></label>
+                      <input type="text" placeholder="Enter Username" name="uname" required>
+                
+                      <label for="psw"><b>Password</b></label>
+                      <input type="password" placeholder="Enter Password" name="psw" required>
+                        
+                      <button class="btn-login" type="submit">Login</button>
+                      <label>
+                        <input type="checkbox" checked="checked" name="remember"> Remember me
+                      </label>
+                    </div>
+                
+                    <div class="logincontainer" style="background-color:#f1f1f1">
+                      <button type="button" onclick="document.getElementById('loginModal').style.display='none'" class="cancelbtn">Cancel</button><br>
+                      <span class="psw"><a href="#">Forgot password?</a></span>
+                    </div>
+                </form>
+            </div>
+        <!-- </div> -->
+               
+        <script> 
+            // tab link
+            function student(evt, portalTab) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace("active", "");
+            }
+            document.getElementById(portalTab).style.display = "block";
+            evt.currentTarget.className += "active";
+            }
+        </script>
+
+        <script>
+            // side bar
+            function openNav() {
+            document.getElementById("mySidebar").style.width = "180px";
+            // document.getElementById("Register").style.marginLeft = "200px";
+            // document.getElementById("Profile").style.marginLeft = "200px";
+            }
+            
+            function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            // document.getElementById("Register").style.margin= "300px 20% 0 20%";
+            // document.getElementById("Profile").style.margin= "300px 20% 0 20%";
+            }
+        </script>
+
+        <script>
+            // Get the info modal
+            var modalEdit = document.getElementById('editStudent');
+            var modalLogin = document.getElementById('loginModal');
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modalEdit) {
+                    modalEdit.style.display = "none";
+                }
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modalLogin) {
+                    modalLogin.style.display = "none";
+                }
+            }   
+        </script>
+    </body>
+</html> 
